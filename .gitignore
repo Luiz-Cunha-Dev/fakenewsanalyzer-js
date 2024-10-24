@@ -1,0 +1,44 @@
+# Ignorar arquivos de ambiente
+.env
+
+# Ignorar arquivos e diretórios do IntelliJ IDEA
+.idea/
+*.iml
+
+# Ignorar arquivos binários do MySQL
+db_data/
+db_data/*.dblwr
+db_data/innodb_redo/
+db_data/innodb_temp/
+db_data/mysql/
+db_data/performance_schema/
+
+# Ignorar o executável do chromedriver
+chromedriver.exe
+
+# Ignorar ambientes virtuais do Python
+venv/
+
+# Ignorar arquivos de dependências
+node_modules/
+*.log
+
+# Ignorar arquivos de configuração do Docker
+docker-compose.override.yml
+
+# Ignorar arquivos de cache do Python
+__pycache__/
+*.py[cod]
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de imagem
+images/
+
+# Ignorar arquivos de usuario
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Ignorar arquivos temporários
+tmp/*
