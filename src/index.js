@@ -1,5 +1,5 @@
 const clientWhatsapp = require("./whatsapp/whatsapp.js");
-const { sendTextMessage } = require("./utils/sendMessage.js");
+const { sendTextMessage, clearChatMessages } = require("./utils/whatsapp.js");
 const { getTextResponseBlackbox, getTextResponseByMediaBlackbox } = require("./IA/blackbox.js");
 const { retry, generateMD5FromBuffer } = require("./utils/commonFunction.js");  
 const { getMessageByMd5, insertMessage } = require("./db/dao/message.js");
@@ -37,9 +37,6 @@ async function processMessageQueue() {
 }
 
 async function handleMessage(message) {
-  if (message.from != '5519987292994@c.us') return;
-
-  console.dir(message, { depth: null, colors: true });
 
   if (message.links.length > 0) {
     const md5 = generateMD5FromBuffer(Buffer.from(message.body));
@@ -52,7 +49,7 @@ async function handleMessage(message) {
 
     await sendTextMessage(message.from, "Aguarde um momento, estamos analisando seu link...");
 
-    const response = await retry(() => getTextResponseBlackbox(`@GPT-4o Link: ${message.links[0].link}. Analise o link passado e responda se se trata de uma fakenews ou não. Responda a mensagem em portugues em formato JSON, um objeto com a chave "text" contendo a resposta e uma chave "fake" do tipo boolean com a informação se é ou não uma fakenews. Não responda nada além disso, apenas a resposta em formato JSON`));
+    const response = await retry(() => getTextResponseBlackbox(`@web search Link: ${message.links[0].link}. Analise o link passado e responda se se trata de uma fakenews ou não. Responda a mensagem em portugues em formato JSON, um objeto com a chave "text" contendo a resposta e uma chave "fake" do tipo boolean com a informação se é ou não uma fakenews. Não responda nada além disso, apenas a resposta em formato JSON`));
 
     await sendTextMessage(message.from, response.text);
 
@@ -117,9 +114,11 @@ async function handleMessage(message) {
       justificativa: response?.text.substring(0, 500) || ''
     });
   }
+
+  // await clearChatMessages(message.from);
 }
 
-clientWhatsapp.on("message_create", (message) => {
+clientWhatsapp.on("message", (message) => {
   messageQueue.push(message);
   processMessageQueue();
 });

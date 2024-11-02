@@ -1,4 +1,4 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
+const { Client, LocalAuth,  } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
 // Configuração do cliente com sessão persistente
@@ -6,7 +6,7 @@ const clientWhatsapp = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        // headless: false,
+        headless: false,
     },
 });
 

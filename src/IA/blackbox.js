@@ -1,4 +1,4 @@
-// blackbox.js
+
 const customPuppeteer = require("../browser/browser");
 
 async function _getJSONResponse(page) {
@@ -61,7 +61,7 @@ async function _getJSONResponse(page) {
 }
 
 async function getTextResponseBlackbox(text) {
-  const browser = await customPuppeteer.getBrowser(); // Adicionado await
+  const browser = await customPuppeteer.getBrowser();
   const page = await browser.newPage();
   try {
     await page.goto("https://www.blackbox.ai/", { timeout: 60000 });
@@ -81,7 +81,7 @@ async function getTextResponseBlackbox(text) {
 }
 
 async function getTextResponseByMediaBlackbox(image, text) {
-  const browser = await customPuppeteer.getBrowser(); // Adicionado await
+  const browser = await customPuppeteer.getBrowser();
   const page = await browser.newPage();
 
   try {
