@@ -5,14 +5,6 @@
 .idea/
 *.iml
 
-# Ignorar arquivos binários do MySQL
-db_data/
-db_data/*.dblwr
-db_data/innodb_redo/
-db_data/innodb_temp/
-db_data/mysql/
-db_data/performance_schema/
-
 # Ignorar o executável do chromedriver
 chromedriver.exe
 
@@ -42,3 +34,6 @@ images/
 
 # Ignorar arquivos temporários
 tmp/*
+
+# Ignorar socket do banco de dados
+db_data/mysql.sock

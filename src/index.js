@@ -38,6 +38,8 @@ async function processMessageQueue() {
 
 async function handleMessage(message) {
 
+  console.log(JSON.stringify(message, null, 2))
+
   if (message.links.length > 0) {
     const md5 = generateMD5FromBuffer(Buffer.from(message.body));
     const messageDB = await getMessageByMd5(md5);
@@ -49,7 +51,7 @@ async function handleMessage(message) {
 
     await sendTextMessage(message.from, "Aguarde um momento, estamos analisando seu link...");
 
-    const response = await retry(() => getTextResponseBlackbox(`@web search Link: ${message.links[0].link}. Analise o link passado e responda se se trata de uma fakenews ou não. Responda a mensagem em portugues em formato JSON, um objeto com a chave "text" contendo a resposta e uma chave "fake" do tipo boolean com a informação se é ou não uma fakenews. Não responda nada além disso, apenas a resposta em formato JSON`));
+    const response = await retry(() => getTextResponseBlackbox(`@web search ${message.links[0].link} Analise o link passado e responda se se trata de uma fakenews ou não. Responda a mensagem em portugues em formato JSON, um objeto com a chave "text" contendo a resposta e uma chave "fake" do tipo boolean com a informação se é ou não uma fakenews. Não responda nada além disso, apenas a resposta em formato JSON`));
 
     await sendTextMessage(message.from, response.text);
 
