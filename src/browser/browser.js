@@ -19,7 +19,7 @@ class Browser {
       Array.from({ length: maxConcurrentMessages }).map(async () => {
         const browser = await puppeteer.launch({
           headless: false,
-          args: ["--no-sandbox", "--disable-setuid-sandbox"],
+          args: ["--no-sandbox", "--disable-setuid-sandbox", "--enable-experimental-web-platform-features"],
         });
         this.browsers.push({ browser, inUse: false });
       })
